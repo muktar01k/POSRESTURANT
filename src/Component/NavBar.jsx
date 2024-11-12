@@ -15,7 +15,7 @@ const NavBar = () => {
 
     const [dateTime, setDateTime] = useState("")
 
-    const { setSearchTerm } = useContext(SearchContext)
+    const { setSearchTerm } = useContext(SearchContext) || {}
 
     const activeToggle = () => {
         setToggleMenu(!toggleMenu)

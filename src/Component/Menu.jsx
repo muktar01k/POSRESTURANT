@@ -1,10 +1,4 @@
-import { Link } from "react-router-dom"
 import NavBar from "./NavBar"
-import Home from "../assets/home.svg"
-import Menu1 from "../assets/menugray.png"
-import Order from "../assets/orderGanGan.png"
-import Payment from "../assets/payment.png"
-import Setting from "../assets/setting.png"
 import AvailableFood from "../Shared/AvailableFoods"
 import Chicken from "../assets/chicken.png"
 import Pepper from "../assets/chilli-2.svg"
@@ -17,10 +11,12 @@ import Gabage from "../assets/gabage.png"
 import Bread from "../assets/bread.png"
 import { useContext, useState } from "react"
 import { SearchContext } from "../Shared/SearchContext"
+import SideBar from "../Shared/SideBar"
+import { GuestContext } from "../Shared/GuestContext"
 
 
 const Menu = () => {
-
+    const { numOfGuest } = useContext(GuestContext)
     const [order, setOrder] = useState([])
     const addToOrder = (foodName, price, foodImage) => {
         const existingItem = order.find((item) => item.name === foodName)
@@ -36,13 +32,13 @@ const Menu = () => {
         }
     }
     const clearOrders = () => {
-        setOrder([]) 
+        setOrder([])
     }
     const subtotal = order.reduce((total, item) => total + item.quantity * item.price, 0)
     const servicecharges = order.length * 1
     const total = subtotal + servicecharges
 
-    const { searchTerm } = useContext(SearchContext); 
+    const { searchTerm } = useContext(SearchContext);
     const foodList = [
         {
             Food: Chicken,
@@ -173,39 +169,10 @@ const Menu = () => {
 
     return (
         <div className="">
-            <NavBar />
+
             <div className="flex justify-center gap-[4rem]">
                 <div className="">
-                    <div className="flex relative flex-col justify-center items-center gap-[4rem] w-[7rem]  h-[40rem]">
-
-                        <div className="absolute left-[7rem] top-0 h-screen w-[2px] bg-gray-200"></div>
-                        <Link to="/">
-                            <div className="cursor-pointer flex flex-col justify-center items-center">
-                                <img src={Home} alt="" />
-                                <p className="text-[#A87F57] font-semibold">Home</p>
-                            </div>
-                        </Link>
-
-                        <Link to="/Menu">
-                            <div className="cursor-pointer flex flex-col justify-center items-center">
-                                <img src={Menu1} alt="" />
-                                <p className="text-[#A87F57] font-semibold">Menu</p>
-                            </div>
-                        </Link>
-                        <div className="cursor-pointer flex flex-col justify-center items-center">
-                            <img src={Payment} alt="" />
-                            <p className="text-[#A87F57] font-semibold">Payment</p>
-                        </div>
-                        <div className="cursor-pointer flex flex-col justify-center items-center">
-                            <img src={Order} alt="" />
-                            <p className="text-[#A87F57] font-semibold">Order</p>
-                        </div>
-                        <div className="cursor-pointer flex flex-col justify-center items-center">
-                            <img src={Setting} alt="" />
-                            <p className="text-[#A87F57] font-semibold">Settings</p>
-                        </div>
-                        <p>V.1.0</p>
-                    </div>
+                    <SideBar />
                 </div>
 
 
@@ -243,7 +210,7 @@ const Menu = () => {
                         <div className="text-[green] font-semibold flex gap-[8rem] mt-[1rem]">
                             <div className="flex gap-[0.5rem]">
                                 <img className="w-[1.5rem]" src={Icon1} alt="" />
-                                <p>GUESS:{ }</p>
+                                <p>GUESS: {numOfGuest}</p>
                             </div>
                             <div className="">
                                 <div className="flex gap-[0.5rem]">
